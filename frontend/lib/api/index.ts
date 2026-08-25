@@ -16,3 +16,8 @@ export {
   isValidationError,
   getErrorMessage,
 } from './errors';
+
+// API endpoint functions
+export * from './issues';
+export * from './chat';
+export * from './repository';
