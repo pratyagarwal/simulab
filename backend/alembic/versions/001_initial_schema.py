@@ -17,11 +17,6 @@ depends_on = None
 
 
 def upgrade() -> None:
-    # Create enum types
-    sa.Enum('admin', 'user', 'agent', name='userrole').create(op.get_bind(), checkfirst=True)
-    sa.Enum('open', 'in_progress', 'closed', 'backlog', name='issuestatus').create(op.get_bind(), checkfirst=True)
-    sa.Enum('low', 'medium', 'high', 'critical', name='issuepriority').create(op.get_bind(), checkfirst=True)
-    
     # Create users table
     op.create_table(
         'users',

@@ -19,9 +19,24 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+
+def get_sync_database_url() -> str:
+    """
+    Convert async database URL to sync URL for Alembic.
+
+    Alembic is a synchronous tool and requires a sync driver (psycopg2).
+    The application uses asyncpg for async operations, but migrations
+    must run synchronously.
+    """
+    url = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/simulab")
+    # Replace asyncpg driver with psycopg2 for synchronous connections
+    if "postgresql+asyncpg://" in url:
+        url = url.replace("postgresql+asyncpg://", "postgresql+psycopg2://")
+    return url
+
+
 # set the sqlalchemy.url from environment
-database_url = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/simulab")
-config.set_main_option("sqlalchemy.url", database_url)
+config.set_main_option("sqlalchemy.url", get_sync_database_url())
 
 # Add models metadata
 from models.base import Base
@@ -44,8 +59,14 @@ def run_migrations_offline() -> None:
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode."""
+    from sqlalchemy import create_engine
+
+    # Create engine from environment variable
+    configuration = config.get_section(config.config_ini_section)
+    configuration["sqlalchemy.url"] = get_sync_database_url()
+
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        configuration,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
