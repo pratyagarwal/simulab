@@ -10,14 +10,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-# lib/ excluded - but be careful not to exclude frontend/lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -28,8 +20,6 @@ venv/
 ENV/
 env/
 .venv
-.env
-.env.local
 
 # IDE
 .vscode/
@@ -37,19 +27,12 @@ env/
 *.swp
 *.swo
 *~
-.DS_Store
 *.sublime-project
 *.sublime-workspace
 
-# Node.js / Frontend
-node_modules/
-npm-debug.log
-yarn-error.log
-.next/
-out/
-.nuxt/
-dist/
-.cache/
+# Environment
+.env
+.env.local
 
 # Database
 *.db
@@ -59,15 +42,6 @@ dist/
 # Logs
 *.log
 logs/
-
-# OS
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
 
 # Testing
 .pytest_cache/
@@ -79,3 +53,6 @@ htmlcov/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Git repos
+repos/
