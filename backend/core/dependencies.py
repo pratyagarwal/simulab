@@ -3,7 +3,7 @@ FastAPI dependency functions for authentication and database access.
 """
 
 from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthCredentials
+from fastapi.security import HTTPBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
@@ -11,12 +11,13 @@ from core.database import get_db
 from core.security import decode_access_token
 from models.user import User
 
+
 # Security scheme for extracting bearer token from Authorization header
 security = HTTPBearer()
 
 
 async def get_current_user(
-    credentials: HTTPAuthCredentials = Depends(security),
+    credentials: dict = Depends(security),
     db: AsyncSession = Depends(get_db),
 ) -> User:
     """
