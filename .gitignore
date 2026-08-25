@@ -10,7 +10,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/ excluded - but be careful not to exclude frontend/lib/
 lib64/
 parts/
 sdist/
