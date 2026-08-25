@@ -11,9 +11,9 @@ from models.base import BaseModel
 
 class UserRole(str, Enum):
     """User roles"""
-    ADMIN = "admin"
-    USER = "user"
-    AGENT = "agent"
+    ADMIN = "ADMIN"
+    USER = "USER"
+    AGENT = "AGENT"
 
 
 class User(BaseModel):
