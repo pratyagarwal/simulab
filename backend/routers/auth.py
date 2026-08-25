@@ -51,7 +51,7 @@ async def register(
         email=request.email,
         name=request.name,
         password_hash=hash_password(request.password),
-        role=UserRole.user,
+        role=UserRole.USER,
         is_active=True,
     )
 
