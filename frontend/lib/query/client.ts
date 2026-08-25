@@ -72,13 +72,23 @@ export const queryClient = new QueryClient({
 export const queryKeys = {
   all: () => ['queries'] as const,
 
+  // Issues queries
   issues: () => [...queryKeys.all(), 'issues'] as const,
   issuesList: (params?: Record<string, unknown>) =>
     [...queryKeys.issues(), 'list', { ...params }] as const,
+  issuesInfinite: (params?: Record<string, unknown>) =>
+    [...queryKeys.issues(), 'infinite', { ...params }] as const,
   issuesDetail: () => [...queryKeys.issues(), 'detail'] as const,
   issue: (id: string) =>
     [...queryKeys.issuesDetail(), { id }] as const,
+  myIssues: (params?: Record<string, unknown>) =>
+    [...queryKeys.issues(), 'my', { ...params }] as const,
+  openIssues: (params?: Record<string, unknown>) =>
+    [...queryKeys.issues(), 'open', { ...params }] as const,
+  searchIssues: (query: string, params?: Record<string, unknown>) =>
+    [...queryKeys.issues(), 'search', { query, ...params }] as const,
 
+  // Chat queries
   chat: () => [...queryKeys.all(), 'chat'] as const,
   messages: () => [...queryKeys.chat(), 'messages'] as const,
   messagesList: (channelId: string, params?: Record<string, unknown>) =>
@@ -87,6 +97,7 @@ export const queryKeys = {
   channel: (id: string) =>
     [...queryKeys.channels(), { id }] as const,
 
+  // Repository queries
   repository: () => [...queryKeys.all(), 'repository'] as const,
   repositoryList: () => [...queryKeys.repository(), 'list'] as const,
   repositoryDetail: () => [...queryKeys.repository(), 'detail'] as const,
